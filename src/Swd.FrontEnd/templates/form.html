@@ -1,0 +1,44 @@
+<form>
+    <fieldset>
+        <legend>Oceń uczelnię:</legend>
+        <label>Uczelnia:</label>
+
+        <div>
+            <div class="input-control select">
+                <select>
+                    <option>Value 1</option>
+                    <option>Value 2</option>
+                    <option>Value 3</option>
+                </select>
+            </div>
+            <label>Rozrywka <small>(poziom zabawy w mieście):</small></label>
+            <div>
+                <input type="range" ng-model="fun" min="1" max="10"/>
+            </div>
+
+            <label>Dofinansowanie <small>(poziom dofinansowania na uczelni):</small></label>
+            <div>
+                <input type="range" ng-model="financies" min="1" max="10"/>
+            </div>
+
+            <label>Zdawalność <small>(jak łatwo jest zdać):</small></label>
+            <div>
+                <input type="range" ng-model="easyness" min="1" max="10"/>
+            </div>
+
+            <label>Praca <small>(łatwość znalezienia pracy):</small></label>
+            <div>
+                <input type="range" ng-model="job" min="1" max="10"/>
+            </div>
+
+            <label>Prestiż <small>(prestiż uczelni):</small></label>
+            <div>
+                <input type="range" ng-model="prestige" min="1" max="10"/>
+            </div>
+        </div>
+        <br />
+        <input value="Zapisz" type="submit">
+    </fieldset>
+
+
+</form>

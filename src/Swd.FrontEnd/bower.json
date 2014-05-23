@@ -1,0 +1,23 @@
+{
+  "name": "SWD",
+  "version": "0.0.0",
+  "authors": [
+    "Marcin Chołuj <choluj.marcin@hotmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.0",
+    "angular": "~1.2.16",
+    "metro-ui-css":">= 2.0.23",
+    "jquery-ui": "~1.10.3"
+  }
+}
