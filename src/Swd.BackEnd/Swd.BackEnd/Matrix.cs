@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Swd.BackEnd
 {
@@ -8,6 +9,12 @@ namespace Swd.BackEnd
         private readonly int _length;
         private double[] _sVector;
         private bool _sVectorCalculated;
+        private static readonly double[] CohesionValues = { 0, 0, 0.52, 0.89, 1.11, 1.25, 1.35, 1.40 };
+
+        private double Cohesion
+        {
+            get { return CohesionValues[_length - 1]; }
+        }
 
         public double[] SVector
         {
@@ -44,17 +51,17 @@ namespace Swd.BackEnd
         public Matrix Normalize()
         {
             var tmpVector = new double[_length];
-            for (int i = 0; i < _length; i++)
+            for (var i = 0; i < _length; i++)
             {
-                for (int j = 0; j < _length; j++)
+                for (var j = 0; j < _length; j++)
                 {
                     tmpVector[i] += _data[j, i];
                 }
             }
 
-            for (int i = 0; i < _length; i++)
+            for (var i = 0; i < _length; i++)
             {
-                for (int j = 0; j < _length; j++)
+                for (var j = 0; j < _length; j++)
                 {
                     _data[j, i] /= tmpVector[i];
                 }
@@ -66,10 +73,10 @@ namespace Swd.BackEnd
         public Matrix CalculateSVector()
         {
             _sVector = new double[_length];
-            for (int i = 0; i < _length; i++)
+            for (var i = 0; i < _length; i++)
             {
                 double sum = 0;
-                for (int j = 0; j < _length; j++)
+                for (var j = 0; j < _length; j++)
                 {
                     sum += _data[i, j];
                 }
@@ -78,6 +85,42 @@ namespace Swd.BackEnd
 
             _sVectorCalculated = true;
             return this;
+        }
+
+        public Matrix CheckCohesion()
+        {
+            var tmpVector = new double[_length];
+            for (var i = 0; i < _length; i++)
+            {
+                for (var j = 0; j < _length; j++)
+                {
+                    tmpVector[i] += _data[j, i];
+                }
+            }
+
+            var alfa = _sVector.Select((t, i) => t * tmpVector[i]).Sum();
+            alfa -= _length;
+            alfa /= (_length - 1);
+            alfa /= Cohesion;
+            if (alfa > 0.1)
+                RepairCohesion();
+            return this;
+        }
+
+        public void CalculatePreferences()
+        {
+            for (int i = 1; i < _length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    _data[i, j] = 1/_data[j, i];
+                }
+            }
+        }
+
+        private void RepairCohesion()
+        {
+            throw new NotImplementedException();
         }
     }
 }

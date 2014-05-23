@@ -47,4 +47,15 @@ namespace Swd.BackEnd.Dtos
     {
         public string Result { get; set; }
     }
+
+    [Route("/calculatedecision/")]
+    public class CalculateDecisionReq
+    {
+        public string Preferences { get; set; }
+    }
+
+    public class CalculateDecisionReqResponse
+    {
+        public string Result { get; set; }
+    }
 }

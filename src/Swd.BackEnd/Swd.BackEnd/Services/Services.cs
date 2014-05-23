@@ -66,5 +66,14 @@ namespace Swd.BackEnd.Services
             }
             return new AddUniversityReqResponse() { Result = "OK" };
         }
+
+        public object Post(CalculateDecisionReq request)
+        {
+            using (var ctx = new DatabaseEntities())
+            {
+                
+            }
+            return new AddUniversityReqResponse() { Result = "OK" };
+        }
     }
 }

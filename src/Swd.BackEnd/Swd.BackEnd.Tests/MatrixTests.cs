@@ -31,6 +31,27 @@ namespace Swd.BackEnd.Tests
         }
 
         [TestMethod]
+        public void CalculatePreferencesTest()
+        {
+            var sampleData = new double[,]
+            {
+                {1, 10, 20},
+                {1, 1, 10},
+                {1, 1, 1}
+            };
+            var mat = new Matrix(sampleData);
+            var sampleOutput = new[,]
+            {
+                {1, 10, 20},
+                {0.1, 1, 10},
+                {0.05, 0.1, 1}
+            };
+
+            mat.CalculatePreferences();
+            Assert.IsTrue(ArraysEqual(mat.Data, sampleOutput));
+        }
+
+        [TestMethod]
         public void CalculateSVectorTest()
         {
             var sampleData = new double[,]
@@ -45,6 +66,13 @@ namespace Swd.BackEnd.Tests
             mat.Normalize().CalculateSVector();
 
             Assert.IsTrue(StructuralComparisons.StructuralEqualityComparer.Equals(mat.SVector, sampleOutput));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void CalculateSVectorNotCalculatedTest()
+        {
+            var mat = new Matrix(3).SVector;
         }
 
         static bool ArraysEqual<T>(T[,] a1, T[,] a2)
