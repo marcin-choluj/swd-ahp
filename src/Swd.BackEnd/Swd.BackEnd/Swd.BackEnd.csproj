@@ -116,6 +116,7 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Dtos\DataDtos.cs" />
+    <Compile Include="Matrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Services.cs" />
