@@ -1,14 +1,13 @@
-angular.module('controllers', ['ui.slider'])
+angular.module('controllers', ['ui.sortable'])
     .controller('formController',
     function ($scope, $http) {
-        $scope.demoVals = {
-            sliderExample3: 14,
-            sliderExample4: 14,
-            sliderExample5: 50,
-            sliderExample8: 0.34,
-            sliderExample9: [-0.52, 0.54],
-            sliderExample10: -0.37
-        };
+        $scope.showFormVar=false;
+        $scope.showForm = function(){
+            $scope.showFormVar = true;
+        }
+        $scope.addUniversity = function(){
+            $scope.showFormVar = false;
+        }
 
 
     })
@@ -22,5 +21,13 @@ angular.module('controllers', ['ui.slider'])
     })
     .controller('decisionController',
     function ($scope, $http) {
+        $scope.list = [{name:"Rozrywka", value:"fun"},
+            {name:"Prestiż", value:"prestige"},
+            {name:"Zdawalność", value:"easyness"},
+            {name:"Praca", value:"job"},
+            {name:"Dofinansowanie", value:"financies"}];
 
+    $scope.sortableOptions = {
+        placeholder: "app-ph"
+    };
     });

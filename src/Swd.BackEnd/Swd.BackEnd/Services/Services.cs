@@ -28,35 +28,11 @@ namespace Swd.BackEnd.Services
             List<University> calculated;
             using (var ctx = new DatabaseEntities())
             {
-                calculated = CalculateAverages(ctx.Universities.GroupBy(e => e.Name));
+                calculated = Algorithm.CalculateAverages(ctx.Universities.GroupBy(e => e.Name));
             }
             return new UniversitiesAverageReqResponse() { Result = calculated };
         }
-
-        private List<University> CalculateAverages(IEnumerable<IGrouping<string, University>> data)
-        {
-            var ret = new List<University>();
-            foreach (var group in data)
-            {
-                var calculatedUniversity = new University();
-                foreach (var university in group)
-                {
-                    calculatedUniversity.Easyness += university.Easyness;
-                    calculatedUniversity.Job += university.Job;
-                    calculatedUniversity.Financies += university.Financies;
-                    calculatedUniversity.Fun += university.Fun;
-                    calculatedUniversity.Prestige += university.Prestige;
-                }
-                calculatedUniversity.Easyness /= group.Count();
-                calculatedUniversity.Job /= group.Count();
-                calculatedUniversity.Financies /= group.Count();
-                calculatedUniversity.Fun /= group.Count();
-                calculatedUniversity.Prestige /= group.Count();
-                ret.Add(calculatedUniversity);
-            }
-            return ret;
-        }
-
+        
         public object Post(AddUniversityReq request)
         {
             using (var ctx = new DatabaseEntities())

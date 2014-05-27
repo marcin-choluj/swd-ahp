@@ -12,6 +12,7 @@ namespace Swd.BackEnd.Tests
         [TestMethod]
         public void NormalizeTest()
         {
+            //var test = 2*2;
             var alg = new Algorithm("fun,financies,job,easyness,prestige");
 
         }

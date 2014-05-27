@@ -11,32 +11,62 @@
                     <option>Value 3</option>
                 </select>
             </div>
-            <label>Rozrywka <small>(poziom zabawy w mieście):</small></label>
+            <h6 class="text-right cursor-hand"><a ng-click="showForm()">+dodaj uczelnię</a></h6>
+
+            <div class="grid" ng-show="showFormVar">
+                <div class="row">
+                    <div class="span7 offset1">
+                        <label>Nazwa:</label>
+
+                        <div class="input-control text">
+                            <input type="text" ng-model="newName" placeholder="nazwa uczelni"/>
+                            <button class="btn-clear"></button>
+                        </div>
+                        <input value="Dodaj" type="submit" ng-click="addUniversity()">
+                    </div>
+                </div>
+            </div>
+            <label>Rozrywka
+                <small>(poziom zabawy w mieście):</small>
+            </label>
+
             <div>
                 <input type="range" ng-model="fun" min="1" max="10"/>
             </div>
 
-            <label>Dofinansowanie <small>(poziom dofinansowania na uczelni):</small></label>
+            <label>Dofinansowanie
+                <small>(poziom dofinansowania na uczelni):</small>
+            </label>
+
             <div>
                 <input type="range" ng-model="financies" min="1" max="10"/>
             </div>
 
-            <label>Zdawalność <small>(jak łatwo jest zdać):</small></label>
+            <label>Zdawalność
+                <small>(jak łatwo jest zdać):</small>
+            </label>
+
             <div>
                 <input type="range" ng-model="easyness" min="1" max="10"/>
             </div>
 
-            <label>Praca <small>(łatwość znalezienia pracy):</small></label>
+            <label>Praca
+                <small>(łatwość znalezienia pracy):</small>
+            </label>
+
             <div>
                 <input type="range" ng-model="job" min="1" max="10"/>
             </div>
 
-            <label>Prestiż <small>(prestiż uczelni):</small></label>
+            <label>Prestiż
+                <small>(prestiż uczelni):</small>
+            </label>
+
             <div>
                 <input type="range" ng-model="prestige" min="1" max="10"/>
             </div>
         </div>
-        <br />
+        <br/>
         <input value="Zapisz" type="submit">
     </fieldset>
 

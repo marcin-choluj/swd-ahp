@@ -122,6 +122,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Services.cs" />
+    <Compile Include="UniversitiesData.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="University.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

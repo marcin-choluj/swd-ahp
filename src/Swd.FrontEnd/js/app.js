@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'controllers'])
+angular.module('app', ['ngRoute', 'controllers', 'ui'])
     .controller('appController',function($scope, $http){
     })
     .config(['$routeProvider',
