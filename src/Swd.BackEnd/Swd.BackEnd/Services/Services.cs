@@ -10,7 +10,7 @@ using Swd.BackEnd.Dtos;
 
 namespace Swd.BackEnd.Services
 {
-    [EnableCors(allowedMethods: "GET")]
+    [EnableCors(allowedMethods: "GET,POST")]
     public class UniversitiesService : Service
     {
         public object Get(UniversitiesReq request)
@@ -32,7 +32,7 @@ namespace Swd.BackEnd.Services
             }
             return new UniversitiesAverageReqResponse() { Result = calculated };
         }
-        
+
         public object Post(AddUniversityReq request)
         {
             using (var ctx = new DatabaseEntities())
@@ -45,11 +45,9 @@ namespace Swd.BackEnd.Services
 
         public object Post(CalculateDecisionReq request)
         {
-            using (var ctx = new DatabaseEntities())
-            {
-                
-            }
-            return new AddUniversityReqResponse() { Result = "OK" };
+            var alg = new Algorithm(request.Preferences);
+            return new CalculateDecisionReqResponse() { Result = alg.ResultUniversity.Name };
+
         }
     }
 }

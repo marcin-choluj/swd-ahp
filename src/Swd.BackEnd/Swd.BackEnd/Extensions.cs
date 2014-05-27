@@ -10,9 +10,22 @@ namespace Swd.BackEnd
             for (int i = 0; i < data.Length; i++)
             {
                 if (data[i] == key)
-                    return i+1;
+                    return i + 1;
             }
             return -1;
+        }
+
+        public static int GetHighestIndex(this double[] data)
+        {
+            var h = data[0];
+            var index = 0;
+            for (var i = 0; i < data.Length; i++)
+            {
+                if (!(h < data[i])) continue;
+                h = data[i];
+                index = i;
+            }
+            return index;
         }
     }
 }

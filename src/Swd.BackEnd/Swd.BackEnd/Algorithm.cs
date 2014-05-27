@@ -21,20 +21,18 @@ namespace Swd.BackEnd
         public Matrix FinanciesMatrix { get; set; }
         public Matrix EasynessMatrix { get; set; }
 
+        public University ResultUniversity { get; set; }
+
         public Algorithm(string preferences)
         {
             ExtractPreferences(preferences);
             CalculatePreferencesMatrix();
 
             List<University> calculated;
-            //using (var ctx = new DatabaseEntities())
-            //{
-            //    calculated = CalculateAverages(ctx.Universities.GroupBy(e => e.Name));
-            //}
-            calculated=new List<University>();
-            calculated.Add(new University { Name = "PWR", Easyness = 20, Financies = 50, Fun = 90, Job = 70, Prestige = 59 });
-            calculated.Add(new University { Name = "UWR", Easyness = 60, Financies = 15, Fun = 45, Job = 65, Prestige = 45 });
-            calculated.Add(new University { Name = "DSW", Easyness = 80, Financies = 65, Fun = 86, Job = 12, Prestige = 65 });
+            using (var ctx = new DatabaseEntities())
+            {
+                calculated = CalculateAverages(ctx.Universities.GroupBy(e => e.Name));
+            }
 
             calculated.Sort((u1, u2) => u1.Name.CompareTo(u2.Name));
 
@@ -44,7 +42,26 @@ namespace Swd.BackEnd
             CreatePropertyMatrix(calculated, university => university.Prestige, matrix => PrestigeMatrix = matrix);
             CreatePropertyMatrix(calculated, university => university.Financies, matrix => FunMatrix = matrix);
 
+            var preferencesVector = PreferencesMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
+            var easynessVector = EasynessMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
+            var jobVector = JobMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
+            var financiesVector = FinanciesMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
+            var prestigeVector = PrestigeMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
+            var funVector = FunMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
 
+            //kolejność cech: prestige,job,fun,financies,easyness
+            var decisionVector = new double[easynessVector.Length];
+            for (int i = 0; i < easynessVector.Length; i++)
+            {
+                decisionVector[i] += preferencesVector[0] * prestigeVector[i];
+                decisionVector[i] += preferencesVector[1] * jobVector[i];
+                decisionVector[i] += preferencesVector[2] * funVector[i];
+                decisionVector[i] += preferencesVector[3] * financiesVector[i];
+                decisionVector[i] += preferencesVector[4] * easynessVector[i];
+            }
+            var result = decisionVector.GetHighestIndex();
+
+            ResultUniversity = calculated[result];
         }
 
         public static List<University> CalculateAverages(IEnumerable<IGrouping<string, University>> data)
@@ -53,6 +70,11 @@ namespace Swd.BackEnd
             foreach (var group in data)
             {
                 var calculatedUniversity = new University();
+                calculatedUniversity.Easyness = 0;
+                calculatedUniversity.Job = 0;
+                calculatedUniversity.Financies = 0;
+                calculatedUniversity.Fun = 0;
+                calculatedUniversity.Prestige = 0;
                 foreach (var university in @group)
                 {
                     calculatedUniversity.Easyness += university.Easyness;
@@ -66,6 +88,7 @@ namespace Swd.BackEnd
                 calculatedUniversity.Financies /= @group.Count();
                 calculatedUniversity.Fun /= @group.Count();
                 calculatedUniversity.Prestige /= @group.Count();
+                calculatedUniversity.Name = group.Key;
                 ret.Add(calculatedUniversity);
             }
             return ret;
@@ -114,7 +137,7 @@ namespace Swd.BackEnd
 
         private void ExtractPreferences(string preferences)
         {
-            Preferences = preferences.Split(',');
+            Preferences = preferences.TrimEnd(',').Split(',');
         }
     }
 }

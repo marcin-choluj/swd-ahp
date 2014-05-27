@@ -120,7 +120,7 @@ namespace Swd.BackEnd
 
         private void RepairCohesion()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

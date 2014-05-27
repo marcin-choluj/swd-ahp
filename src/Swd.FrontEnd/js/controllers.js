@@ -27,7 +27,18 @@ angular.module('controllers', ['ui.sortable'])
             {name:"Praca", value:"job"},
             {name:"Dofinansowanie", value:"financies"}];
 
-    $scope.sortableOptions = {
-        placeholder: "app-ph"
-    };
+	    $scope.sortableOptions = {
+	        placeholder: "app-ph"
+	    };
+		$scope.calculate=function(){
+			var pref = "";
+			$scope.list.forEach(function(entry) {
+			    pref+=entry.value+",";
+			});
+			$http.post('http://localhost:1337/calculatedecision/', {Preferences:pref})
+			.then(function(result) {
+			    $scope.result = result.data.Result;
+			});
+		}
+
     });
