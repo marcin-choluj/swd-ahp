@@ -37,5 +37,18 @@ namespace Swd.BackEnd
             }
             return h;
         }
+
+        public static double[,] Copy(this double[,] data)
+        {
+            var h = new double[data.GetLength(0),data.GetLength(0)];
+            for (var i = 0; i < data.GetLength(0); i++)
+            {
+                for (int j = 0; j < data.GetLength(0); j++)
+                {
+                    h[i, j] = data[i, j];
+                }
+            }
+            return h;
+        }
     }
 }

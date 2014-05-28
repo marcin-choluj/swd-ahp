@@ -6,10 +6,11 @@ namespace Swd.BackEnd
     public class Matrix
     {
         private double[,] _data;
+        private double[,] _unnormalizedData;
         private readonly int _length;
         private double[] _sVector;
         private bool _sVectorCalculated;
-        private static readonly double[] CohesionValues = { 0, 0, 0.52, 0.89, 1.11, 1.25, 1.35, 1.40 };
+        private static readonly double[] CohesionValues = { 0, 0, 0.58, 0.89, 1.11, 1.25, 1.35, 1.40 };
 
         private double Cohesion
         {
@@ -50,6 +51,7 @@ namespace Swd.BackEnd
 
         public Matrix Normalize()
         {
+            _unnormalizedData = _data.Copy();
             var tmpVector = new double[_length];
             for (var i = 0; i < _length; i++)
             {
@@ -94,7 +96,7 @@ namespace Swd.BackEnd
             {
                 for (var j = 0; j < _length; j++)
                 {
-                    tmpVector[i] += _data[j, i];
+                    tmpVector[i] += _unnormalizedData[j, i];
                 }
             }
 

@@ -39,9 +39,9 @@ namespace Swd.BackEnd.Tests
                 {2, 5, 2},
                 {3, 1, 3}
             };
+
             var mat = new Matrix(sampleData);
             var sampleOutput = new double[,] { { 60, 105, 60 }, { 26, 47, 26 }, { 26, 38, 26 } };
-
             mat.SquareMatrix();
             Assert.IsTrue(ArraysEqual(mat.Data, sampleOutput));
         }
