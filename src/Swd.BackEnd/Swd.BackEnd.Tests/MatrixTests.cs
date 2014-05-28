@@ -31,6 +31,22 @@ namespace Swd.BackEnd.Tests
         }
 
         [TestMethod]
+        public void SquareTest()
+        {
+            var sampleData = new double[,]
+            {
+                {5, 10, 5},
+                {2, 5, 2},
+                {3, 1, 3}
+            };
+            var mat = new Matrix(sampleData);
+            var sampleOutput = new double[,] { { 60, 105, 60 }, { 26, 47, 26 }, { 26, 38, 26 } };
+
+            mat.SquareMatrix();
+            Assert.IsTrue(ArraysEqual(mat.Data, sampleOutput));
+        }
+
+        [TestMethod]
         public void CalculatePreferencesTest()
         {
             var sampleData = new double[,]

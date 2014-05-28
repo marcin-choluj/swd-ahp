@@ -5,7 +5,7 @@ namespace Swd.BackEnd
 {
     public class Matrix
     {
-        private readonly double[,] _data;
+        private double[,] _data;
         private readonly int _length;
         private double[] _sVector;
         private bool _sVectorCalculated;
@@ -113,14 +113,71 @@ namespace Swd.BackEnd
             {
                 for (int j = 0; j < i; j++)
                 {
-                    _data[i, j] = 1/_data[j, i];
+                    _data[i, j] = 1 / _data[j, i];
                 }
             }
         }
 
         private void RepairCohesion()
         {
-            //throw new NotImplementedException();
+            var dokladnosc = 0.001; // w prezentacji e - do którego miejsca po przecinku kolejne wektory priorytetow sa takie same
+
+            var staryWektorPriorytetow = new double[_length];
+            var wektorPriorytetow = new double[_length];
+
+            var czySzukac = true;
+
+            while (czySzukac)
+            {
+                SquareMatrix();
+                double sumaWektora = 0;
+                for (int k = 0; k < _length; k++)
+                {
+                    for (int l = 0; l < _length; l++)
+                    {
+                        wektorPriorytetow[k] += Data[k, l];
+                        sumaWektora += Data[k, l];
+                    }
+                }
+                for (int k = 0; k < _length; k++)
+                {
+                    wektorPriorytetow[k] = wektorPriorytetow[k] / sumaWektora;
+                }
+
+                var czySpelnia = true;
+
+                for (int k = 0; k < _length; k++)
+                {
+                    if (Math.Abs(wektorPriorytetow[k] - staryWektorPriorytetow[k]) > dokladnosc)
+                        czySpelnia = false;
+                }
+
+                if (czySpelnia)
+                {
+                    czySzukac = false;
+                }
+
+                staryWektorPriorytetow = wektorPriorytetow.Copy();
+            }
+
+            _sVector = wektorPriorytetow;
+        }
+
+        public void SquareMatrix()
+        {
+            var newMatrix = new double[_length, _length];
+            for (int i = 0; i < _length; i++)
+            {
+                for (int j = 0; j < _length; j++)
+                {
+                    for (int k = 0; k < _length; k++)
+                    {
+                        newMatrix[i, j] += Data[i, k] * Data[k, j];
+                    }
+                }
+            }
+
+            _data = newMatrix;
         }
     }
 }
