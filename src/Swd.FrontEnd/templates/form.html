@@ -5,10 +5,8 @@
 
         <div>
             <div class="input-control select">
-                <select>
-                    <option>Value 1</option>
-                    <option>Value 2</option>
-                    <option>Value 3</option>
+                <select ng-model="name">
+                    <option ng-repeat="u in universities">{{u.Name}}</option>
                 </select>
             </div>
             <h6 class="text-right cursor-hand"><a ng-click="showForm()">+dodaj uczelnię</a></h6>
@@ -31,7 +29,7 @@
             </label>
 
             <div>
-                <input type="range" ng-model="fun" min="1" max="10"/>
+                <input type="range" ng-model="fun" min="1" max="100"/>
             </div>
 
             <label>Dofinansowanie
@@ -39,7 +37,7 @@
             </label>
 
             <div>
-                <input type="range" ng-model="financies" min="1" max="10"/>
+                <input type="range" ng-model="financies" min="1" max="100"/>
             </div>
 
             <label>Zdawalność
@@ -47,7 +45,7 @@
             </label>
 
             <div>
-                <input type="range" ng-model="easyness" min="1" max="10"/>
+                <input type="range" ng-model="easyness" min="1" max="100"/>
             </div>
 
             <label>Praca
@@ -55,7 +53,7 @@
             </label>
 
             <div>
-                <input type="range" ng-model="job" min="1" max="10"/>
+                <input type="range" ng-model="job" min="1" max="100"/>
             </div>
 
             <label>Prestiż
@@ -63,11 +61,11 @@
             </label>
 
             <div>
-                <input type="range" ng-model="prestige" min="1" max="10"/>
+                <input type="range" ng-model="prestige" min="1" max="100"/>
             </div>
         </div>
         <br/>
-        <input value="Zapisz" type="submit">
+        <input value="Zapisz" type="submit" ng-click="save()">
     </fieldset>
 
 

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using Funq;
+using MongoDB.Driver.Linq;
+using Swd.Backend;
+using Swd.BackEnd.Entities;
 using Swd.BackEnd.Services;
 
 namespace Swd.BackEnd
@@ -28,11 +32,10 @@ namespace Swd.BackEnd
             ExtractPreferences(preferences);
             CalculatePreferencesMatrix();
 
-            List<University> calculated;
-            using (var ctx = new DatabaseEntities())
-            {
-                calculated = CalculateAverages(ctx.Universities.GroupBy(e => e.Name));
-            }
+            var query = from universities in new DbDriver().UniversitiesCollection.AsQueryable<University>()
+                        select universities;
+
+            var calculated = CalculateAverages(query.ToList().GroupBy(e => e.Name));
 
             calculated.Sort((u1, u2) => u1.Name.CompareTo(u2.Name));
 
@@ -40,7 +43,7 @@ namespace Swd.BackEnd
             CreatePropertyMatrix(calculated, university => university.Job, matrix => JobMatrix = matrix);
             CreatePropertyMatrix(calculated, university => university.Financies, matrix => FinanciesMatrix = matrix);
             CreatePropertyMatrix(calculated, university => university.Prestige, matrix => PrestigeMatrix = matrix);
-            CreatePropertyMatrix(calculated, university => university.Financies, matrix => FunMatrix = matrix);
+            CreatePropertyMatrix(calculated, university => university.Fun, matrix => FunMatrix = matrix);
 
             var preferencesVector = PreferencesMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;
             var easynessVector = EasynessMatrix.Normalize().CalculateSVector().CheckCohesion().SVector;

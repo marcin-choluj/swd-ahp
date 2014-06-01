@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using MongoDB.Driver.Linq;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Html;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Cors;
+using Swd.Backend;
 using Swd.BackEnd.Dtos;
+using Swd.BackEnd.Entities;
 
 namespace Swd.BackEnd.Services
 {
@@ -15,31 +19,24 @@ namespace Swd.BackEnd.Services
     {
         public object Get(UniversitiesReq request)
         {
-            List<University> universities;
-            using (var ctx = new DatabaseEntities())
-            {
-                universities = ctx.Universities.ToList();
-            }
-            return new UniversitiesReqResponse() { Result = universities };
+            var universities = from u in new DbDriver().UniversitiesCollection.AsQueryable<University>() select u;
+            return new UniversitiesReqResponse() { Result = universities.ToList<University>() };
         }
 
         public object Get(UniversitiesAverageReq request)
         {
-            List<University> calculated;
-            using (var ctx = new DatabaseEntities())
-            {
-                calculated = Algorithm.CalculateAverages(ctx.Universities.GroupBy(e => e.Name));
-            }
+            var query = from universities in new DbDriver().UniversitiesCollection.AsQueryable<University>()
+                        select universities;
+
+            var calculated = Algorithm.CalculateAverages(query.ToList().GroupBy(e => e.Name));
             return new UniversitiesAverageReqResponse() { Result = calculated };
         }
 
         public object Post(AddUniversityReq request)
         {
-            using (var ctx = new DatabaseEntities())
-            {
-                ctx.Universities.Add(request.ToUniversity());
-                ctx.SaveChanges();
-            }
+
+            new DbDriver().UniversitiesCollection.Insert(request.ToUniversity());
+
             return new AddUniversityReqResponse() { Result = "OK" };
         }
 

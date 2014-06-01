@@ -1,15 +1,36 @@
 angular.module('controllers', ['ui.sortable'])
     .controller('formController',
     function ($scope, $http) {
+        $scope.universities=[];
+        $http.get('http://localhost:1337/universities/average/')
+            .then(function(result) {
+                $scope.universities = result.data.Result;
+            });
+        $scope.easyness=1;
+        $scope.job=1;
+        $scope.financies=1;
+        $scope.fun=1;
+        $scope.prestige=1;
+
         $scope.showFormVar=false;
         $scope.showForm = function(){
             $scope.showFormVar = true;
-        }
+        };
         $scope.addUniversity = function(){
             $scope.showFormVar = false;
-        }
+            $scope.universities.push({Name:$scope.newName});
+            $scope.newName="";
+        };
 
-
+        $scope.save = function(){
+            $http.post('http://localhost:1337/universities/add/', {
+                    Name:$scope.name,
+                    Easyness:$scope.easyness,
+                    Job:$scope.job,
+                    Financies:$scope.financies,
+                    Fun:$scope.fun,
+                    Prestige:$scope.prestige});
+        };
     })
     .controller('homeController',
     function ($scope, $http) {
@@ -39,6 +60,5 @@ angular.module('controllers', ['ui.sortable'])
 			.then(function(result) {
 			    $scope.result = result.data.Result;
 			});
-		}
-
+		};
     });
