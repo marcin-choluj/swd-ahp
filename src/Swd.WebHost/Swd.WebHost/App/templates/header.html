@@ -1,0 +1,23 @@
+<header class="bg-dark">
+    <div class="navigation-bar dark fixed-top shadow">
+        <div class="navigation-bar-content container">
+            <a href="#home" class="element"><span class="icon-user on-left-more"></span> SWD WYBÓR UCZELNI </a>
+            <span class="element-divider "></span>
+            <a href="#decision" class="element  element-menu">Wybór uczelni</a>
+            <span class="element-divider "></span>
+            <a href="#rate" class="element  element-menu">Ocena uczelni</a>
+            <span class="element-divider "></span>
+            <a href="#averages" class="element  element-menu">Porównanie uczelni</a>
+            <span class="element-divider "></span>
+
+           
+            
+            <a class="element place-right" ng-show="logged" href="/auth/logout">
+                <span class="icon-user on-left-more"></span>
+                {{userAgent}}
+            </a>
+            <a ng-hide="logged" href="/auth/facebook" class="element place-right"><span class="icon-facebook on-left-more"></span>Zaloguj się</a>
+            <span class="element-divider place-right"></span>
+        </div>
+    </div>
+</header>
