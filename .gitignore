@@ -11,8 +11,11 @@
 [Dd]ebugPublic/
 [Rr]elease/
 x64/
-build/
+
+
+build/*
 !src/Swd.WebHost/Swd.WebHost/App/*
+
 bld/
 [Bb]in/
 [Oo]bj/
