@@ -60,6 +60,10 @@ angular.module('controllers', ['ui.sortable'])
     })
     .controller('averagesController',
     function ($scope, $http) {
+        $http.get('/universities/average/')
+        .then(function (result) {
+            $scope.universities = result.data.Result;
+        });
 
     })
     .controller('decisionController',
