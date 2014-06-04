@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using MongoDB.Bson;
+using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using ServiceStack;
 using Swd.WebHost.Dtos;
@@ -39,6 +41,32 @@ namespace Swd.WebHost.Services
             return new CalculateDecisionReqResponse() { Result = alg.ResultUniversity.Name };
 
         }
+
+        public object Get(MyUniversitiesReq request)
+        {
+            var session = SessionAs<AuthUserSession>();
+            var universities = from u in new DbDriver().UniversitiesCollection.AsQueryable<University>() where u.AddedBy==session.UserAuthId select u;
+            return new UniversitiesReqResponse() { Result = universities.ToList<University>() };
+        }
+
+        public object Get(DeleteMyUniversitiesReq request)
+        {
+            new DbDriver().UniversitiesCollection.Remove(Query.EQ("_id", new ObjectId(request.Id)));
+            return new AddUniversityReqResponse() { Result = "OK" };
+        }
+    }
+
+    [Route("/universities/myratings")]
+    [Authenticate]
+    public class MyUniversitiesReq
+    {
+    }
+
+    [Route("/universities/myratings/delete/{id}")]
+    [Authenticate]
+    public class DeleteMyUniversitiesReq
+    {
+        public string Id { get; set; }
     }
 
     [Route("/authinfo")]

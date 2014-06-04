@@ -25,6 +25,7 @@ namespace Swd.WebHost.Dtos
     }
 
     [Route("/universities/add/")]
+    [Authenticate]
     public class AddUniversityReq
     {
         public string Name { get; set; }

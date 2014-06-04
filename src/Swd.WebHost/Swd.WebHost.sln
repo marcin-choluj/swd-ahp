@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swd.WebHost", "Swd.WebHost\Swd.WebHost.csproj", "{88FF3136-4FFB-4876-BEFE-7BF217D9BFF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swd.WebHost.Tests", "Swd.WebHost.Tests\Swd.WebHost.Tests.csproj", "{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,16 @@ Global
 		{88FF3136-4FFB-4876-BEFE-7BF217D9BFF1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{88FF3136-4FFB-4876-BEFE-7BF217D9BFF1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{88FF3136-4FFB-4876-BEFE-7BF217D9BFF1}.Release|x86.ActiveCfg = Release|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{70B60F9A-C75C-4454-81E1-BEB3277B8BBF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

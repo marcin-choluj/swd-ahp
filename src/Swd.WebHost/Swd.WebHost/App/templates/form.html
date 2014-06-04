@@ -1,4 +1,36 @@
-<form>
+<form ng-show="logged">
+    <fieldset ng-show="hasRatings">
+        <legend>Moje oceny:</legend>
+        <table class="table hovered">
+            <thead>
+                <tr>
+                    <th class="text-left">Nazwa</th>
+                    <th class="text-left">Rozrywka</th>
+                    <th class="text-left">Dofinansowanie</th>
+                    <th class="text-left">Zdawalność</th>
+                    <th class="text-left">Praca</th>
+                    <th class="text-left">Prestiż</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="u in myUniversities">
+                    <td>{{u.Name}}</td>
+                    <td class="right">{{u.Fun}}</td>
+                    <td class="right">{{u.Financies}}</td>
+                    <td class="right">{{u.Easyness}}</td>
+                    <td class="right">{{u.Job}}</td>
+                    <td class="right">{{u.Prestige}}</td>
+                    <td class="right">
+                        <a ng-click="delete(u.Id)" href="">
+                            <span class="icon-cancel-2 on-left-more"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </fieldset>
     <fieldset>
         <legend>Oceń uczelnię:</legend>
         <label>Uczelnia:</label>
@@ -17,56 +49,65 @@
                         <label>Nazwa:</label>
 
                         <div class="input-control text">
-                            <input type="text" ng-model="newName" placeholder="nazwa uczelni"/>
+                            <input type="text" ng-model="newName" placeholder="nazwa uczelni" />
                             <button class="btn-clear"></button>
                         </div>
                         <input value="Dodaj" type="submit" ng-click="addUniversity()">
                     </div>
                 </div>
             </div>
-            <label>Rozrywka
+            <label>
+                Rozrywka
                 <small>(poziom zabawy w mieście):</small>
             </label>
 
             <div>
-                <input type="range" ng-model="fun" min="1" max="100"/>
+                <input type="range" ng-model="fun" min="1" max="100" />
             </div>
 
-            <label>Dofinansowanie
+            <label>
+                Dofinansowanie
                 <small>(poziom dofinansowania na uczelni):</small>
             </label>
 
             <div>
-                <input type="range" ng-model="financies" min="1" max="100"/>
+                <input type="range" ng-model="financies" min="1" max="100" />
             </div>
 
-            <label>Zdawalność
+            <label>
+                Zdawalność
                 <small>(jak łatwo jest zdać):</small>
             </label>
 
             <div>
-                <input type="range" ng-model="easyness" min="1" max="100"/>
+                <input type="range" ng-model="easyness" min="1" max="100" />
             </div>
 
-            <label>Praca
+            <label>
+                Praca
                 <small>(łatwość znalezienia pracy):</small>
             </label>
 
             <div>
-                <input type="range" ng-model="job" min="1" max="100"/>
+                <input type="range" ng-model="job" min="1" max="100" />
             </div>
 
-            <label>Prestiż
+            <label>
+                Prestiż
                 <small>(prestiż uczelni):</small>
             </label>
 
             <div>
-                <input type="range" ng-model="prestige" min="1" max="100"/>
+                <input type="range" ng-model="prestige" min="1" max="100" />
             </div>
         </div>
-        <br/>
+        <br />
         <input value="Zapisz" type="submit" ng-click="save()">
     </fieldset>
 
 
 </form>
+
+<div ng-hide="logged">
+    <p class="text-center"><a href="/auth/facebook"><i class="icon-facebook on-left"></i>Zaloguj się</a> aby dodawać oceny uczelni.</p>
+</div>

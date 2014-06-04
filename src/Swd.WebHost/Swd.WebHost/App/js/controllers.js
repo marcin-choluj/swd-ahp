@@ -1,7 +1,17 @@
 angular.module('controllers', ['ui.sortable'])
     .controller('formController',
     function ($scope, $http, $rootScope) {
-        console.log($rootScope.logged);
+        $scope.hasRatings = false;
+        var downloadRatings = function () {
+            $http.get('/universities/myratings/')
+                .then(function (result) {
+                    $scope.myUniversities = result.data.Result;
+                    $scope.hasRatings = true;
+                });
+        };
+        downloadRatings();
+
+        $scope.logged = $rootScope.logged;
         $scope.universities = [];
         $http.get('/universities/average/')
             .then(function (result) {
@@ -31,8 +41,18 @@ angular.module('controllers', ['ui.sortable'])
                 Financies: $scope.financies,
                 Fun: $scope.fun,
                 Prestige: $scope.prestige
+            }).then(function () {
+                downloadRatings();
             });
+
         };
+
+        $scope.delete = function (id) {
+            $http.get('/universities/myratings/delete/' + id).then(function () {
+                downloadRatings();
+            });
+
+        }
     })
     .controller('homeController',
     function ($scope, $http) {
